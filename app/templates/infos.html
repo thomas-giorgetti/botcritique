@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infos</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+    </style>
+    <script>
+        function filterTable() {
+            const filters = Array.from(document.querySelectorAll('thead input')).map(input => input.value.toLowerCase());
+            const rows = document.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                let isVisible = true;
+
+                filters.forEach((filter, index) => {
+                    if (filter && cells[index].textContent.toLowerCase().indexOf(filter) === -1) {
+                        isVisible = false;
+                    }
+                });
+
+                row.style.display = isVisible ? '' : 'none';
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Infos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>IMDB ID</th>
+                <th>Title</th>
+                <th>Year</th>
+                <th>Rating</th>
+                <th>Review</th>
+                <th>User ID</th>
+                <th>Username</th>
+            </tr>
+            <tr>
+                <th><input type="text" onkeyup="filterTable()" placeholder="Filter ID"></th>
+                <th><input type="text" onkeyup="filterTable()" placeholder="Filter IMDB ID"></th>
+                <th><input type="text" onkeyup="filterTable()" placeholder="Filter Title"></th>
+                <th><input type="text" onkeyup="filterTable()" placeholder="Filter Year"></th>
+                <th><input type="text" onkeyup="filterTable()" placeholder="Filter Rating"></th>
+                <th><input type="text" onkeyup="filterTable()" placeholder="Filter Review"></th>
+                <th><input type="text" onkeyup="filterTable()" placeholder="Filter User ID"></th>
+                <th><input type="text" onkeyup="filterTable()" placeholder="Filter Username"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for info in infos %}
+            <tr>
+                <td>{{ info.id }}</td>
+                <td>{{ info.imdbID }}</td>
+                <td>{{ info.title }}</td>
+                <td>{{ info.year }}</td>
+                <td>{{ info.rating }}</td>
+                <td>{{ info.review | wrap_text }}</td>
+                <td>{{ info.user_id }}</td>
+                <td>{{ info.username }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
