@@ -63,7 +63,7 @@ def random_review():
         reviews = cursor.fetchall()
 
         if not reviews:
-            return jsonify({'error': 'Je trouve rien pour ce film.'}), 404
+            return jsonify({'error': 'Je trouve rien.'}), 404
 
         title, review = random.choice(reviews)
         return jsonify({ 'title': title, 'review': review}), 200
@@ -83,7 +83,7 @@ def list_reviews():
         reviews = cursor.fetchall()
 
         if not reviews:
-            return jsonify({'error': 'Je trouve rien pour ce film.'}), 404
+            return jsonify({'error': 'Je trouve rien.'}), 404
 
         reviews_list = [{'id': review[0], 'title': review[1], 'rating': review[2], 'username': review[3]} for review in reviews]
         return jsonify({'reviews': reviews_list}), 200

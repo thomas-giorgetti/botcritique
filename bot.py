@@ -73,7 +73,7 @@ async def on_message(message):
                     list_message = '\n'.join([f"ID {review['id']} : {review['username']} a collé {review['rating']} à {review['title']} " for review in reviews])
                     await message.channel.send(f'Liste des notes :\n{list_message}')
                 else:
-                    await message.channel.send('Je trouve rien pour ce film.')
+                    await message.channel.send('Je trouve rien.')
             else:
                 await message.channel.send(f'Erreur : {response.json()["error"]}')
         except Exception as e:
